@@ -150,14 +150,14 @@ def print_task_list(tasks, hide_completed=False, timezoneOffset=0, with_notes=Fa
 		if isinstance(task, core.Checkable):
 			if task.is_completed and hide_completed:
 				continue
-			printer('[%s] %s %s' % ('X' if task.is_completed else '_', i + 1, task.text))
+			printer('[%s] %s %s' % ('X' if task.is_completed else ' ', i + 1, task.text))
 		else:
 			printer('%s %s' % (i + 1, task.text))
 		if with_notes and task.notes:
 			printer('\n'.join('      {0}'.format(line) for line in task.notes.splitlines()))
 		if isinstance(task, core.Checklist):
 			for j, item in enumerate(task.checklist):
-				completed = 'X' if item.is_completed else '_'
+				completed = 'X' if item.is_completed else ' '
 				printer('    [%s] %s.%s %s' % (completed, i + 1, j + 1, item.text))
 
 TASK_SCORES = {
