@@ -150,7 +150,7 @@ def print_task_list(tasks, hide_completed=False, timezoneOffset=0, with_notes=Fa
 		if isinstance(task, core.Checkable):
 			if task.is_completed and hide_completed:
 				continue
-			printer('[%s] %s %s' % ('X' if task.is_completed else ' ', i + 1, task.text))
+			printer('- [%s] %s %s' % ('X' if task.is_completed else ' ', i + 1, task.text))
 		else:
 			printer('%s %s' % (i + 1, task.text))
 		if with_notes and task.notes:
@@ -158,7 +158,7 @@ def print_task_list(tasks, hide_completed=False, timezoneOffset=0, with_notes=Fa
 		if isinstance(task, core.Checklist):
 			for j, item in enumerate(task.checklist):
 				completed = 'X' if item.is_completed else ' '
-				printer('    [%s] %s.%s %s' % (completed, i + 1, j + 1, item.text))
+				printer('  - [%s] %s.%s %s' % (completed, i + 1, j + 1, item.text))
 
 TASK_SCORES = {
 		core.Task.DARK_RED	  : '<<<   ',
@@ -436,9 +436,9 @@ def todos_done(habitica, tasks, full=False): # pragma: no cover
 	print_task_list(todos, with_notes=full, hide_completed=True)
 
 @todos.command('add')
-@click.option('--difficulty', type=click.Choice(['easy', 'medium', 'hard']), default='easy')
+#@click.option('--difficulty', type=click.Choice(['easy', 'medium', 'hard']), default='easy')
 @click.pass_obj
-def todos_add(habitica, difficuly=None): # pragma: no cover -- FIXME not tested and probably not working, should replace with proper creation action.
+def todos_add(habitica): # difficuly=None): # pragma: no cover -- FIXME not tested and probably not working, should replace with proper creation action.
 	""" Add todo with description
 	"""
 	todos = [e for e in habitica.user.todos() if not e.is_completed]
